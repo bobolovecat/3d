@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-// import App from './App.jsx'
-import App from './App2.jsx'
+import App from './AppAnimation.jsx'
 import './App.css'
 import studio from '@theatre/studio'
 import extension from '@theatre/r3f/dist/extension'
