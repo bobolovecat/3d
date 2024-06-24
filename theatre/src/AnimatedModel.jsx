@@ -1,23 +1,17 @@
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
-const actionNames = ['Animation']
-
 const AnimatedModel = () => {
-  const model = useGLTF('/lol.glb')
-
-  const animations = useAnimations(model.animations, model.scene)
-
-  const action = animations.actions[actionNames[0]]
+  const { animations, scene } = useGLTF('/lol.glb')
+  const { actions } = useAnimations(animations, scene)
+  console.log('actions', actions)
 
   useFrame(() => {
-    action.play()
+    actions?.Animation.play()
   })
 
   return (
-    <mesh>
-      <primitive object={model.scene} />
-    </mesh>
+    <primitive object={scene} />
   )
 }
 
