@@ -15,21 +15,19 @@ const Scene = () => {
     sheet.sequence.position = scroll.offset * sequenceLength
   });
 
-  const bgColor = "#84a4f4"
-
   return (
     <>
-      <color attach="background" args={[bgColor]} />
+      {/* <color attach="background" args={['#84a4f4']} /> */}
       <ambientLight intensity={0.5} />
       <directionalLight position={[-5, 5, -5]} />
       <Gltf src="/dragon.glb" castShadow receiveShadow />
       <PerspectiveCamera
         theatreKey="Camera"
         makeDefault
-        position={[0, 0, 0]}
+        // position={[0, 0, 0]}
         fov={90}
         near={0.1}
-        far={70}
+        far={300}
       />
     </>
   )
