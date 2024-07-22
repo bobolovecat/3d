@@ -6,7 +6,8 @@ import flyThroughState from './state.json'
 import Scene from './Scene';
 
 function App() {
-  const sheet = getProject('Fly Through', {state: flyThroughState}).sheet('Scene')
+  // const sheet = getProject('Fly Through', {state: flyThroughState}).sheet('Scene')
+  const sheet = getProject('Fly Through').sheet('Scene')
 
   return (
     <Canvas>
