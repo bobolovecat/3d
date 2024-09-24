@@ -1,0 +1,86 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/"
+          }
+        }
+    </script>
+</head>
+
+<body>
+    <script type="module">
+        import * as THREE from 'three'
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+
+        let scene, camera, renderer, controls
+
+        function init() {
+            scene = new THREE.Scene
+
+            camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 45, 30000)
+            camera.position.set(-900, -200, -900)
+
+            renderer = new THREE.WebGLRenderer({ antialias: true })
+            renderer.setSize(window.innerWidth, window.innerHeight)
+            document.body.appendChild(renderer.domElement)
+
+            controls = new OrbitControls(camera, renderer.domElement)
+            controls.minDistance = 500
+            controls.maxDistance = 1500
+
+
+            let materialArray = []
+            
+            let texture_right = new THREE.TextureLoader().load('./public/right.png')
+            let texture_left = new THREE.TextureLoader().load('./public/left.png')
+            let texture_top = new THREE.TextureLoader().load('./public/top.png')
+            let texture_down = new THREE.TextureLoader().load('./public/down.png')
+            let texture_back = new THREE.TextureLoader().load('./public/back.png')
+            let texture_front = new THREE.TextureLoader().load('./public/front.png')
+
+            materialArray.push(new THREE.MeshBasicMaterial({ map: texture_right }))
+            materialArray.push(new THREE.MeshBasicMaterial({ map: texture_left }))
+            materialArray.push(new THREE.MeshBasicMaterial({ map: texture_top }))
+            materialArray.push(new THREE.MeshBasicMaterial({ map: texture_down }))
+            materialArray.push(new THREE.MeshBasicMaterial({ map: texture_back }))
+            materialArray.push(new THREE.MeshBasicMaterial({ map: texture_front }))
+            
+        
+            
+
+            for (let i = 0; i < materialArray.length; i++) {
+                materialArray[i].side = THREE.BackSide
+            }
+
+            let skyBoxGeo = new THREE.BoxGeometry(10000, 10000, 10000)
+            let skyBox = new THREE.Mesh(skyBoxGeo, materialArray)
+            scene.add(skyBox)
+
+            animate()
+        }
+
+        function animate() {
+            renderer.render(scene, camera)
+            controls.update()
+
+            requestAnimationFrame(animate)
+        }
+
+        init()
+    </script>
+</body>
+
+</html>
