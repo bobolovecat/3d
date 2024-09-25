@@ -3,13 +3,16 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 class App {
   constructor() {
-    this.initScene() 
-    this.initCamera() 
-    this.initRenderer() 
-    this.initControls() 
-    this.loadSkybox() 
-    this.addEventListeners() 
-    this.animate() 
+    this.init()
+  }
+
+  init() {
+    this.initScene()
+    this.initCamera()
+    this.initRenderer()
+    this.initControls()
+    this.loadSkybox()
+    this.animate()
   }
 
   initScene() {
@@ -27,7 +30,7 @@ class App {
   }
 
   initRenderer() {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true }) 
+    this.renderer = new THREE.WebGLRenderer() 
     this.renderer.setSize(window.innerWidth, window.innerHeight) 
     document.body.appendChild(this.renderer.domElement) 
   }
@@ -43,16 +46,6 @@ class App {
     .load(['right.png', 'left.png', 'top.png', 'down.png', 'back.png', 'front.png'])
 
     this.scene.background = skyboxTexture 
-  }
-
-  addEventListeners() {
-    window.addEventListener("resize", this.onWindowResize.bind(this)) 
-  }
-
-  onWindowResize() {
-    this.camera.aspect = window.innerWidth / window.innerHeight 
-    this.camera.updateProjectionMatrix() 
-    this.renderer.setSize(window.innerWidth, window.innerHeight) 
   }
 
   animate = () => {
