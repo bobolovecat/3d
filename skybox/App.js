@@ -38,7 +38,6 @@ class App {
   initControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement) 
     this.controls.enableDamping = true  // 启用阻尼效果
-    this.controls.enableZoom = true  // 允许缩放
   }
 
   loadSkybox() {
