@@ -7,8 +7,8 @@ model-viewer {
 	margin-top: 10vh; 
 	height: 80vh;
 	position: fixed;
-	animation: foo linear both;
-	animation-timeline: scroll(block root);
+	animation: foo;
+	animation-timeline: scroll();
 	pointer-events: none;
 }
 
