@@ -1,3 +1,7 @@
+html {
+	background: #2a2a2a;
+}
+
 @keyframes empty {
 }
 
@@ -49,4 +53,6 @@ model-viewer {
 model-viewer::part(default-progress-bar) {
 	display: none;
 }
+
+
 
