@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝可梦球球</title>
+    <script src="./js/lib/aframe.min.js"></script>
+    <script>
+        window.addEventListener("load", spawnBalls);
+
+        function randomFloat(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function map(source, in_min, in_max, out_min, out_max) {
+            return (source - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+
+        function createBall(position) {
+            const scale = randomFloat(.5, 1.5);
+            const ball = document.createElement("a-entity");
+
+            ball.setAttribute("gltf-model", "#pokiball");
+            ball.setAttribute("scale", { x: scale, y: scale, z: scale });
+            ball.setAttribute("position", position);
+            ball.setAttribute("rotation", `0 ${randomFloat(-180, 180)} 0`);
+
+            return ball;
+        }
+
+        function spawnBalls() {
+            const scene = document.querySelector("a-scene");
+            const numBalls = 15;
+            const numRings = 5;
+
+            for (let ring = 1; ring <= numRings; ring++) {
+                const radius = (2 + 2 * ring) + Math.random();
+                const angle = Math.PI * 2 / numBalls;
+
+                for (let i = 0; i < numBalls; i++) {
+                    const theta = (angle * i) + (angle * 0.6 * ring);
+                    const sphereCoord = new THREE.Spherical(radius, Math.PI / 2, theta);
+                    const pos = new THREE.Vector3();
+                    
+                    pos.setFromSpherical(sphereCoord);
+                    const ball = createBall(pos);
+                    scene.appendChild(ball);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="pokiball" src="./assets/pokiball.glb"></a-asset-item>
+        </a-assets>
+        <a-entity light="type: ambient; color: #FFF; intensity: 1.0;"></a-entity>
+        <a-entity
+            light="type: directional; color: #FFF; intensity: 0.15; castShadow: true; shadowCameraFar: 12; shadowCameraLeft: -7; shadowCameraRight: 7; shadowCameraTop: 7; shadowCameraBottom: -7;"
+            position="-2 4 0"></a-entity>
+        <a-plane position="0 0 0" rotation="-90 0 0" width="50" height="25"
+            src="./assets/seamless-grass-texture-with-old-stone-tiles--274.webp" shadow="receive:true"></a-plane>
+    </a-scene>
+</body>
+
+</html>
